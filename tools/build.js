@@ -40,4 +40,6 @@ put('FONTS', fonts); put('CSS', css); put('BANK', bank); put('ENGINE', engine); 
 fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
 const out = path.join(root, 'dist/diksiyon-studyosu.html');
 fs.writeFileSync(out, html);
+// Vercel / GitHub Pages gibi statik barındırıcılar kökte index.html arar
+fs.writeFileSync(path.join(root, 'index.html'), html);
 console.log('yazıldı:', out, (html.length / 1024).toFixed(0) + ' KB');

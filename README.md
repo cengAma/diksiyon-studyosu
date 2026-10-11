@@ -2,7 +2,7 @@
 
 Bir metin verildiğinde Türkçe diksiyon kurallarını **cümle → sözcük → hece → harf** düzeyinde gösteren, tek dosyalık web uygulaması.
 
-**Kullanmak için:** [`dist/diksiyon-studyosu.html`](dist/diksiyon-studyosu.html) dosyasını indirip çift tıklayın. İnternet gerekmez; yazdığınız metin tarayıcıdan dışarı çıkmaz. Ses kaydı özellikleri için Chrome veya Edge önerilir.
+**Kullanmak için:** [`dist/diksiyon-studyosu.html`](dist/diksiyon-studyosu.html) dosyasını indirip çift tıklayın. Web'de yayınlamak için kökteki `index.html` kullanılır (Vercel, GitHub Pages vb. doğrudan sunar). İnternet gerekmez; yazdığınız metin tarayıcıdan dışarı çıkmaz. Ses kaydı özellikleri için Chrome veya Edge önerilir.
 
 ## Neler var?
 
@@ -23,7 +23,7 @@ Bir metin verildiğinde Türkçe diksiyon kurallarını **cümle → sözcük �
 
 ```bash
 cd tools && npm install && cd ..   # yazı tipleri (Bricolage Grotesque, Literata)
-node tools/build.js                # dist/diksiyon-studyosu.html üretir
+node tools/build.js                # dist/diksiyon-studyosu.html ve kökte index.html üretir
 node test/engine.test.js           # kural motoru testleri
 python3 test/func.py               # tarayıcıda arayüz testleri (Playwright gerekir)
 ```
@@ -39,6 +39,7 @@ data/guide_bank.json   "Türkçe Diksiyon Kılavuzu"ndan türetilen kural/örnek
 tools/             derleme betiği ve kılavuz ayıklama aracı
 test/              motor ve arayüz testleri
 dist/              derlenmiş tek dosyalık uygulama
+index.html         aynı dosya, statik barındırma için kökte
 ```
 
 Hazırlayan: Anıl Mithatcan Akbaş
