@@ -71,7 +71,7 @@ function drillFor(ch) {
   h += '<div id="miniLab"></div>';
   h += '<div class="acts"><button class="btn pri" type="button" data-load="all">' + ic('play') + 'Hepsini sahneye al</button>' + (info.sentence ? '<button class="btn" type="button" data-load="sent">Yalnız cümleyi al</button>' : '') + '<button class="btn ghost" type="button" data-load="hunt">Bu harfle kelime avı</button></div>';
   out.innerHTML = h;
-  out.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
+  vScroll(out, { block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
 }
 
 function drillText(ch) {
@@ -92,14 +92,14 @@ function miniLab(words) {
       '<div class="lab-sub"><span class="pill ipa">' + esc(w.say) + '</span><span class="pill">' + w.syl.length + ' hece</span></div>' +
       '<div class="rules">' + rules.map((m, i) => '<div class="rule" style="--rc:var(' + markColor(m) + ');--i:' + i + '"><h4><span>' + esc(m.title) + '</span><span class="cf ' + m.conf + '">' + CONF[m.conf] + '</span></h4><p>' + esc(m.text) + '</p></div>').join('') + '</div></div>';
   }).join('');
-  box.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
+  vScroll(box, { block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
 }
 
 function practiceFocus(t) {
-  if (t.letter) { drillFor(t.letter); const b = $('#lgrid [data-letter="' + t.letter + '"]'); if (b) b.scrollIntoView({ block: 'center' }); }
-  else if (t.twisters) { const el = $('#groupList'); if (el) { el.scrollIntoView({ block: 'center' }); el.animate([{ outline: '2px solid transparent' }, { outline: '2px solid var(--brand)' }, { outline: '2px solid transparent' }], { duration: 1400 }); } }
-  else if (t.liaison) { const el = $('#liaisonGo'); if (el) el.scrollIntoView({ block: 'center' }); }
-  else if (t.mistakes) { const el = $('#mistGo'); if (el) el.scrollIntoView({ block: 'center' }); }
+  if (t.letter) { drillFor(t.letter); const b = $('#lgrid [data-letter="' + t.letter + '"]'); if (b) vScroll(b, { block: 'center' }); }
+  else if (t.twisters) { const el = $('#groupList'); if (el) { vScroll(el, { block: 'center' }); el.animate([{ outline: '2px solid transparent' }, { outline: '2px solid var(--brand)' }, { outline: '2px solid transparent' }], { duration: 1400 }); } }
+  else if (t.liaison) { const el = $('#liaisonGo'); if (el) vScroll(el, { block: 'center' }); }
+  else if (t.mistakes) { const el = $('#mistGo'); if (el) vScroll(el, { block: 'center' }); }
 }
 
 function bindPractice() {

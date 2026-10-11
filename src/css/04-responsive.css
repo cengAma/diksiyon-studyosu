@@ -82,3 +82,13 @@
 /* ---- dokunmatik ekranda üzerinde kalan ipucu balonu gizli (dokununca ayrıntı paneli zaten açılır) ---- */
 @media (hover: none) { #tip { display: none !important; } }
 @media (hover: none) { .btn .kbd { display: none; } }
+
+/* ---- sayfa yana kaymasın: taşan içerik kırpılır (kaydırılabilir alan oluşturmaz) ---- */
+@supports (overflow: clip) {
+  html { overflow-x: hidden; }
+  body { overflow-x: clip; }
+}
+.rp { position: absolute; }
+
+/* ---- önerilen soluk işareti ("∨ soluk") uzun: kırpılmasın ---- */
+.stage[data-on~="durak"] .pz.sg { max-width: 7em; }

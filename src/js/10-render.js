@@ -348,7 +348,7 @@ function bindStage() {
     else return;
     e.preventDefault();
     selectWord(gi, { quiet: true });
-    const el = $('#stage .w[data-gi="' + gi + '"]'); if (el) el.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+    const el = $('#stage .w[data-gi="' + gi + '"]'); if (el) vScroll(el, { block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
   });
 }
 

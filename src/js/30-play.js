@@ -175,7 +175,7 @@ function sentChange(si, instant) {
   if (el) {
     el.classList.add('act');
     const r = el.getBoundingClientRect();
-    if (P.playing && (r.top < 90 || r.bottom > window.innerHeight - 120)) el.scrollIntoView({ block: 'center', behavior: instant || REDUCED ? 'auto' : 'smooth' });
+    if (P.playing && (r.top < 90 || r.bottom > window.innerHeight - 120)) vScroll(el, { block: 'center', behavior: instant || REDUCED ? 'auto' : 'smooth' });
   }
   P.curSi = si;
   $('#tmSent').textContent = (si + 1) + ' / ' + App.A.sentences.length;
@@ -281,7 +281,7 @@ function stepSentence(d) {
   if (App.loop) P.loopSi = si;
   if (P.playing) P.last = performance.now();
   selectSentence(si, { quiet: true });
-  const el = elsMap().sent[si]; if (el && !P.playing) el.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+  const el = elsMap().sent[si]; if (el && !P.playing) vScroll(el, { block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
   $('#stage').classList.add('playing');
   updateProgress();
 }

@@ -57,9 +57,24 @@ const ICONS = {
 const ic = (n) => '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[n] || '') + '</svg>';
 function hydrateIcons(root) { $$('i[data-ic]', root).forEach((el) => { el.outerHTML = ic(el.dataset.ic); }); }
 
+/* ---- yalnız dikey kaydırma: scrollIntoView sayfayı yana da kaydırıp telefonda içeriği sola itebiliyordu ---- */
+function vScroll(el, o) {
+  if (!el) return; o = o || {};
+  const r = el.getBoundingClientRect(), vh = window.innerHeight, top = 72, bot = o.bottom != null ? o.bottom : 24;
+  let y;
+  if (o.block === 'nearest') {
+    if (r.top < top) y = window.scrollY + r.top - top - 8;
+    else if (r.bottom > vh - bot) y = window.scrollY + r.bottom - vh + bot + 8;
+    else return;
+  } else {
+    y = window.scrollY + r.top - (vh - r.height) / 2;
+  }
+  window.scrollTo({ top: Math.max(0, Math.round(y)), left: 0, behavior: o.behavior || 'auto' });
+}
+
 /* ---- düğme dalgası ---- */
 document.addEventListener('pointerdown', (e) => {
-  const b = e.target.closest('.btn, .pbtn');
+  const b = e.target.closest('.btn');
   if (!b || REDUCED) return;
   const r = b.getBoundingClientRect();
   const s = document.createElement('span');

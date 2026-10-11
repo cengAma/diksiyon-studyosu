@@ -78,11 +78,11 @@ function bindReport() {
   const root = $('#report');
   root.onclick = (e) => {
     const heat = e.target.closest('#heat button');
-    if (heat) { goView('read'); setTimeout(() => { selectSentence(+heat.dataset.si, { quiet: false }); const el = $('#stage .sent[data-si="' + heat.dataset.si + '"]'); if (el) el.scrollIntoView({ block: 'center' }); }, 120); return; }
+    if (heat) { goView('read'); setTimeout(() => { selectSentence(+heat.dataset.si, { quiet: false }); const el = $('#stage .sent[data-si="' + heat.dataset.si + '"]'); if (el) vScroll(el, { block: 'center' }); }, 120); return; }
     const hd = e.target.closest('.hard button');
     if (hd) { openWordInRead(+hd.dataset.gi); return; }
     const al = e.target.closest('.alerts button');
-    if (al) { if (al.dataset.gi != null) openWordInRead(+al.dataset.gi); else { goView('read'); setTimeout(() => { selectSentence(+al.dataset.si); const el = $('#stage .sent[data-si="' + al.dataset.si + '"]'); if (el) el.scrollIntoView({ block: 'center' }); }, 120); } return; }
+    if (al) { if (al.dataset.gi != null) openWordInRead(+al.dataset.gi); else { goView('read'); setTimeout(() => { selectSentence(+al.dataset.si); const el = $('#stage .sent[data-si="' + al.dataset.si + '"]'); if (el) vScroll(el, { block: 'center' }); }, 120); } return; }
     const tk = e.target.closest('[data-task]');
     if (tk) { const t = CODE_TASKS[+tk.dataset.task]; goView('practice'); setTimeout(() => practiceFocus(t), 80); return; }
     if (e.target.closest('#rpCopy')) { copyText(E.exportMarked(App.A), 'İşaretli metin kopyalandı'); return; }
@@ -93,7 +93,7 @@ function bindReport() {
 }
 function openWordInRead(gi) {
   goView('read');
-  setTimeout(() => { selectWord(gi); const el = $('#stage .w[data-gi="' + gi + '"]'); if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 120);
+  setTimeout(() => { selectWord(gi); const el = $('#stage .w[data-gi="' + gi + '"]'); if (el) vScroll(el, { block: 'center', behavior: 'smooth' }); }, 120);
 }
 
 function copyText(txt, msg) {
