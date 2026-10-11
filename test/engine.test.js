@@ -32,16 +32,16 @@ function eTypes(w) { const x = E.buildWord(w); return x.letters.filter((l) => l.
 const ES = {
   gel: ['acik'], ben: ['acik'], sen: ['acik'], ver: ['acik'], yer: ['acik'], her: ['acik'], bel: ['acik'], tel: ['acik'], ten: ['acik'], sel: ['acik'],
   de: ['kapali'], ne: ['kapali'], be: ['kapali'], ev: ['kapali'], et: ['kapali'], ekmek: ['kapali', 'kapali'], gece: ['kapali', 'kapali'], kedi: ['kapali'], yemek: ['kapali', 'kapali'], eşek: ['kapali', 'kapali'],
-  evler: ['kapali', 'acik'], elbise: ['acik', 'kapali'], perde: ['acik', 'kapali'], kalem: ['acik'], gelmek: ['acik', 'kapali'], sevmek: ['kapali', 'kapali'], pencere: ['acik', 'kapali', 'kapali'],
+  evler: ['kapali', 'acik'], elbise: ['acik', 'kapali'], perde: ['acik', 'kapali'], kalem: ['acik'], gelmek: ['acik', 'kapali'], sevmek: ['kapali', 'kapali'], pencere: ['kapali', 'kapali', 'kapali'], benzin: ['kapali'], tencere: ['kapali', 'kapali', 'kapali'], mendil: ['kapali'], bengi: ['kapali'], hemen: ['kapali', 'acik'], kemer: ['kapali', 'acik'],
   kendi: ['kapali'], hem: ['kapali'], genç: ['kapali']
 };
 for (const w in ES) eq('e ' + w, eTypes(w), ES[w]);
-// cümle: yalnız pen ve ten açık
+// cümle: kapalı e alıştırması; pen ve ten de kapalı (n + ünsüz)
 {
   const A = E.analyze('Gece penceredeki benekli tekir kedi tenceredeki eti yedi.');
   const open = [];
   A.words.forEach((w) => w.letters.forEach((l, i) => { if (l.n === 'e' && l.eType === 'acik') open.push(E.sylText(w, l.syl).toLowerCase()); }));
-  eq('cümle açık e (pen, ten)', open, ['pen', 'ten']);
+  eq('cümle açık e (hiç yok)', open, []);
   const B = E.analyze('Sen gelmeden ben evde yemek yaparım.');
   const o2 = [], c2 = [];
   B.words.forEach((w) => w.letters.forEach((l) => { if (l.n === 'e') (l.eType === 'acik' ? o2 : c2).push(E.sylText(w, l.syl).toLowerCase()); }));

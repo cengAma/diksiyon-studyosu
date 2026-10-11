@@ -110,8 +110,8 @@
      "te"
     ]
    ],
-   "sentence": "Sen gelmeden ben evde yemek yaparım. (açık e: sen, gel, den, ben; kapalı e: me, ev, de, ye, mek) Gece penceredeki benekli tekir kedi tenceredeki eti yedi. (açık e yalnız pen ve ten hecelerinde; diğer e'lerin hepsi kapalı)",
-   "careful": "Her e'yi aynı söylemek konuşmayı yapay gösterir. Açık ve kapalı e anlamı değiştirmez ama söyleyişin doğallığını belirler. Bu kural genel eğilimdir; kendi, hem, genç gibi birkaç sözcükte e çoğu zaman kapalı söylenir. Sınıfta eğitmeninizin söylediği biçim esastır.",
+   "sentence": "Sen gelmeden ben evde yemek yaparım. (açık e: sen, gel, den, ben; kapalı e: me, ev, de, ye, mek) Gece penceredeki benekli tekir kedi tenceredeki eti yedi. (kapalı e alıştırması: e'lerin hepsi kapalı; pen ve ten hecelerinde n'den sonra ünsüz geldiği için e dar söylenir)",
+   "careful": "Her e'yi aynı söylemek konuşmayı yapay gösterir. Açık ve kapalı e anlamı değiştirmez ama söyleyişin doğallığını belirler. Bu kural genel eğilimdir; kendi, hem, genç gibi birkaç sözcükte e çoğu zaman kapalı söylenir. n'den sonra bir ünsüz gelen köklerde (pencere, tencere, mendil, benzin) çoğu diksiyon kaynağında e kapalı söylenir; ben, sen gibi n ile biten sözcüklerde ise açıktır. Bazı kaynaklar bu hecelerde açığa yakın söyler. Sınıfta eğitmeninizin söylediği biçim esastır.",
    "extra": {
     "syllablePairs": "Önce açık, sonra kapalı e söyleyin: gel – ge, ben – be, ver – ve, sen – se, tel – te."
    }

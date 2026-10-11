@@ -92,7 +92,7 @@ function similarFor(w) {
   switch (m.code) {
     case 'E_ACIK': title = 'açık e'; list = BANK.eOpen || []; break;
     case 'E_KAPALI': title = 'kapalı e'; list = BANK.eClosed || []; break;
-    case 'E_KAPALI_ISTISNA': title = 'kapalı söylenen istisnalar'; list = ['kendi', 'hem', 'genç']; break;
+    case 'E_KAPALI_ISTISNA': title = 'kapalı söylenen istisnalar'; list = ['kendi', 'hem', 'genç', 'pencere', 'tencere', 'mendil', 'benzin']; break;
     case 'N_M': title = 'n → m'; list = SIM.N_M; break;
     case 'N_NG': title = 'n → ng sesi'; list = SIM.N_NG; break;
     case 'UNLU_UZUN': title = 'uzun ünlü'; list = SIM.UNLU_UZUN; break;

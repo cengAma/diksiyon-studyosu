@@ -51,7 +51,9 @@
     /* l / k / g'nin ince söylendiği alıntı sözcük kökleri (a, o, u yanında bile) */
     inceStems: ['kalp', 'kalb', 'alkol', 'rol', 'gol', 'futbol', 'basketbol', 'voleybol', 'petrol', 'konsol', 'protokol', 'kontrol', 'lüzum', 'sol'.slice(0, 0)].filter(Boolean),
     /* e'nin çoğunlukla kapalı söylendiği istisnalar: kök -> hece indeksi listesi (kılavuz: kendi, hem, genç) */
-    eKapaliExc: { kendi: [0], hem: [0], genç: [0], kendim: [0], kendin: [0], kendisi: [0], kendimiz: [0] },
+    eKapaliExc: { kendi: [0], hem: [0], genç: [0], kendim: [0], kendin: [0], kendisi: [0], kendimiz: [0], pencere: [0], tencere: [0], mendil: [0], bengi: [0], benzin: [0] },
+    /* n'den sonra ünsüz gelen köklerde (pen·ce·re, ben·zin) diksiyon derslerinde e çoğunlukla kapalı/dar söylenir */
+    eKapaliNC: ['pencere', 'tencere', 'mendil', 'bengi', 'benzin'],
     /* vurgunun sondan farklı olduğu sözcükler (kök -> hece indeksi, 0'dan) */
     stress: {
       şimdi: 0, ancak: 0, belki: 0, yalnız: 0, hemen: 0, sadece: 0, nasıl: 0, neden: 0, niçin: 0, kimse: 0, herkes: 0, bazen: 0,
@@ -430,7 +432,9 @@
         const excConf = uex ? 'hoca' : 'egilim';
         const st = sylText(w, si);
         if (exc) {
-          addMark(w, { code: 'E_KAPALI_ISTISNA', layer: 'unlu', at: [i], sev: 'tip', conf: excConf, title: 'Kapalı e (istisna)', text: '"' + w.text + '" sözcüğünde "' + st + '" hecesindeki e, kural açık gerektirse de çoğu zaman kapalı söylenir.', tip: 'Çene biraz dar, dudak köşeleri yana. Hocanın söyleyişi esastır.', ref: REF.e });
+          const nc = !uex && LX.eKapaliNC.some((k) => word.startsWith(k));
+          if (nc) addMark(w, { code: 'E_KAPALI_ISTISNA', layer: 'unlu', at: [i], sev: 'tip', conf: excConf, title: 'Kapalı e (n + ünsüz)', text: '"' + w.text + '" sözcüğünde "' + st + '" hecesinde n\'den sonra bir ünsüz geliyor; diksiyon derslerinde bu e çoğunlukla kapalı, dar söylenir (ben, sen gibi n ile biten sözcüklerdeki açık e\'den farklı). Bazı kaynaklar buraya açığa yakın söyler.', tip: 'Çene biraz dar, dudak köşeleri yana; e i\'ye doğru daralır. Hocanın söyleyişi esastır.', ref: REF.e });
+          else addMark(w, { code: 'E_KAPALI_ISTISNA', layer: 'unlu', at: [i], sev: 'tip', conf: excConf, title: 'Kapalı e (istisna)', text: '"' + w.text + '" sözcüğünde "' + st + '" hecesindeki e, kural açık gerektirse de çoğu zaman kapalı söylenir.', tip: 'Çene biraz dar, dudak köşeleri yana. Hocanın söyleyişi esastır.', ref: REF.e });
         } else if (open) {
           addMark(w, { code: 'E_ACIK', layer: 'unlu', at: [i], sev: 'info', conf: 'egilim', title: 'Açık e', text: coda.length === 1 ? '"' + st + '" hecesi ' + coda[0] + ' ile bitiyor → açık e.' : '"' + st + '" hecesinde e\'den sonra ' + coda[0] + ' geliyor → açık e.', tip: 'Çene a\'ya yakın ve geniş, dil önde. Dar bırakıp i\'ye kaçırma.', ref: REF.e });
         } else {
