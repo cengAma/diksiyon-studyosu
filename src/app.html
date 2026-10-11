@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diksiyon Stüdyosu</title>
+<meta name="description" content="Metni yapıştır; her sözcüğün hecesini, vurgusunu, açık-kapalı e'sini, n-m geçişini, duraklarını ve ulamalarını harf harf gör. Tarayıcıda çalışır; metin cihazından çıkmaz.">
+<meta name="theme-color" content="#071619">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230b2024'/%3E%3Cpath d='M9 19v-3M14 23V11M19 21v-6M24 25V7' stroke='%23e9f2ef' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M24 25V7' stroke='%23f2c45a' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+/*{{FONTS}}*/
+/*{{CSS}}*/
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="logo" href="#" id="logo" aria-label="Diksiyon Stüdyosu — ana sayfa">
+    <svg class="mk" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="var(--bg2)" stroke="var(--line2)"/><g stroke-width="3" stroke-linecap="round"><path d="M9 19v-3M14 22V11M19 20v-6" stroke="var(--ink)"/><path d="M24 24V8" stroke="var(--brand)"/></g></svg>
+    <span><b>Diksiyon</b> <i>Stüdyosu</i></span>
+  </a>
+  <nav class="tabs" role="tablist" aria-label="Bölümler" id="tabs">
+    <span class="pill" aria-hidden="true"></span>
+    <button role="tab" aria-selected="true" data-view="read">Okuma</button>
+    <button role="tab" aria-selected="false" data-view="practice">Alıştırma</button>
+    <button role="tab" aria-selected="false" data-view="report">Rapor</button>
+  </nav>
+  <span class="sp"></span>
+  <span class="hoca-badge" id="hocaBadge">★ Hoca modu</span>
+  <div class="acts">
+    <button class="btn ic ghost" id="btnTheme" aria-label="Temayı değiştir" title="Tema (T)"><i data-ic="moon"></i></button>
+    <button class="btn ic ghost" id="btnHelp" aria-label="Yardım ve kısayollar" title="Yardım (?)"><i data-ic="help"></i></button>
+  </div>
+</header>
+
+<main>
+  <!-- ================= OKUMA ================= -->
+  <section class="view on" id="view-read" aria-label="Okuma">
+    <div class="hero" id="hero">
+      <div>
+        <h1>Metni yapıştır, nasıl okunacağını gör.</h1>
+        <p class="lead">Her sözcüğü <b>hecesine</b>, her heceyi <b>harfine</b> ayırır; açık-kapalı e'yi, n'nin m'ye dönüşünü, vurguyu, duraklarla soluğu ve ulamaları metnin üstünde gösterir. Metin bu sayfadan çıkmaz.</p>
+        <div class="composer" id="composer">
+          <label class="sr" for="inp">Çözümlenecek metin</label>
+          <textarea id="inp" spellcheck="false" maxlength="20000" placeholder="Metni buraya yapıştır ya da yaz…  Örnek: Sonbaharda renkli yaprakları sanki kimse toplamıyor."></textarea>
+          <div class="bar">
+            <span class="cnt" id="cnt">0 sözcük</span>
+            <button class="btn ghost sm" id="btnClear" type="button">Temizle</button>
+            <button class="btn pri" id="btnGo" type="button"><i data-ic="spark"></i>Çözümle <span class="kbd" style="background:rgba(0,0,0,.15);border-color:transparent;color:inherit">Ctrl ↵</span></button>
+          </div>
+        </div>
+        <div class="chips-t">Ya da bir örnekle başla</div>
+        <div class="chips" id="samples"></div>
+      </div>
+      <div class="live" id="live" aria-live="polite">
+        <div class="lh"><span class="dot"></span><span>Canlı çözümleme</span><span class="src" id="liveSrc">örnek sözcük</span></div>
+        <div class="bigword stage" id="liveWord" data-on=""></div>
+        <div class="sound" id="liveSound"></div>
+        <div class="why" id="liveWhy"></div>
+      </div>
+    </div>
+
+    <div class="studio" id="studio" hidden>
+      <div class="textbar" id="textbar">
+        <span class="tt" id="tbText"></span>
+        <span class="st" id="tbStat"></span>
+        <button class="btn sm" id="btnEdit" type="button"><i data-ic="edit"></i><span class="lbl">Metni düzenle</span></button>
+        <button class="btn sm ghost" id="btnShare" type="button" title="Bağlantıyı kopyala"><i data-ic="link"></i><span class="lbl">Paylaş</span></button>
+        <button class="btn sm ghost" id="btnPrint" type="button" title="Yazdır / PDF"><i data-ic="print"></i><span class="lbl">Yazdır</span></button>
+      </div>
+
+      <aside class="rail" id="rail" aria-label="Katmanlar">
+        <div class="rcard lcard">
+          <h3>Katmanlar <span class="sp"></span></h3>
+          <div class="presets" id="presets" role="group" aria-label="Hazır görünümler"></div>
+          <div class="lys" id="lys"></div>
+        </div>
+        <div class="rcard opts-card">
+          <h3>Okuma</h3>
+          <div class="rrow"><span>Yazı boyutu</span><span class="sp"></span><button class="btn sm ic" id="fsMinus" aria-label="Küçült">A−</button><button class="btn sm ic" id="fsPlus" aria-label="Büyüt">A+</button></div>
+          <div class="rrow"><label for="capR">Soluk kapasitesi</label><span class="sp"></span><b class="num" id="capV">22</b><span class="mut">hece</span></div>
+          <div class="rrow"><input type="range" id="capR" min="10" max="40" value="22" aria-label="Bir soluktaki hece sayısı"></div>
+          <div class="rrow"><label for="swHoca">Hoca modu</label><span class="sp"></span><input class="swt" type="checkbox" id="swHoca"></div>
+          <div class="rrow"><button class="btn sm ghost" id="btnHocaMgr" type="button" style="width:100%;justify-content:center">★ Hoca notları…</button></div>
+        </div>
+      </aside>
+
+      <article class="reader" id="reader" aria-label="Çözümlenen metin">
+        <div class="legend" id="legend" aria-hidden="true"></div>
+        <div class="stage" id="stage" data-on="" data-dens="0"></div>
+      </article>
+
+      <aside class="side" id="side" aria-label="Ayrıntı paneli">
+        <div class="stabs" role="tablist">
+          <button role="tab" aria-selected="true" data-pane="word">Sözcük</button>
+          <button role="tab" aria-selected="false" data-pane="sent">Cümle</button>
+          <button class="btn ic sm ghost x" id="sideClose" aria-label="Paneli kapat"><i data-ic="x"></i></button>
+        </div>
+        <div class="spane on" id="pane-word"></div>
+        <div class="spane" id="pane-sent"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= ALIŞTIRMA ================= -->
+  <section class="view" id="view-practice" aria-label="Alıştırma">
+    <div class="page" id="practice"></div>
+  </section>
+
+  <!-- ================= RAPOR ================= -->
+  <section class="view" id="view-report" aria-label="Rapor">
+    <div class="page" id="report"></div>
+  </section>
+</main>
+
+<!-- ================= ALT ŞERİT ================= -->
+<div class="dock" id="dock" role="region" aria-label="Okuma oynatıcısı">
+  <button class="pbtn" id="btnPlay" aria-label="Oynat / duraklat" title="Oynat (Boşluk)"><span class="i-play"><i data-ic="play"></i></span><span class="i-pause"><i data-ic="pause"></i></span></button>
+  <div class="dctl">
+    <button class="btn ic ghost" id="btnPrev" aria-label="Önceki cümle" title="Önceki cümle (←)"><i data-ic="prev"></i></button>
+    <button class="btn ic ghost" id="btnNext" aria-label="Sonraki cümle" title="Sonraki cümle (→)"><i data-ic="next"></i></button>
+  </div>
+  <div class="prog">
+    <div class="track" id="track" role="slider" tabindex="0" aria-label="Konum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="ticks" id="ticks"></div><div class="fill" id="pfill"></div><div class="knob" id="pknob"></div>
+    </div>
+    <div class="tm"><span id="tmNow">0:00</span><span id="tmSent"></span><span id="tmTot">0:00</span></div>
+  </div>
+  <div class="breath" id="breath" title="Soluk ölçer: bir soluktaki hece kapasitesi"><small><span>Soluk</span><span class="eq"><i></i><i></i><i></i><i></i></span></small><div class="bar"><i id="breathFill"></i></div></div>
+  <div class="seg" id="tempo" role="group" aria-label="Okuma hızı">
+    <button data-t="yavas" aria-pressed="false">Yavaş</button>
+    <button data-t="normal" aria-pressed="true">Normal</button>
+    <button data-t="hizli" aria-pressed="false">Hızlı</button>
+  </div>
+  <button class="btn ic ghost" id="btnLoop" aria-pressed="false" aria-label="Cümleyi tekrarla" title="Cümleyi tekrarla (L)"><i data-ic="loop"></i></button>
+  <button class="btn ic ghost" id="btnTick" aria-pressed="false" aria-label="Hece vuruşu" title="Hece vuruşu (metronom)"><i data-ic="tick"></i></button>
+  <button class="btn ic ghost" id="btnRec" aria-label="Kendi sesimi kaydet" title="Kendi sesimi kaydet"><i data-ic="mic"></i></button>
+  <button class="btn ic ghost" id="btnPrompt" aria-label="Okuma ekranı (prompter)" title="Prompter"><i data-ic="screen"></i></button>
+</div>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- prompter -->
+<div class="prompter" id="prompter" role="dialog" aria-modal="true" aria-label="Okuma ekranı">
+  <div class="ph">
+    <button class="pbtn" id="pPlay" aria-label="Oynat / duraklat" style="width:46px;height:46px"><span class="i-play"><i data-ic="play"></i></span><span class="i-pause"><i data-ic="pause"></i></span></button>
+    <div class="seg" id="pTempo" role="group" aria-label="Hız"><button data-t="yavas" aria-pressed="false">Yavaş</button><button data-t="normal" aria-pressed="true">Normal</button><button data-t="hizli" aria-pressed="false">Hızlı</button></div>
+    <label class="rrow" style="gap:8px">Boyut <input type="range" id="pSize" min="28" max="110" value="54" aria-label="Yazı boyutu"></label>
+    <span class="sp"></span>
+    <button class="btn sm" id="pMirror" aria-pressed="false">Ayna</button>
+    <button class="btn sm" id="pClose"><i data-ic="x"></i>Kapat</button>
+  </div>
+  <div class="pstage"><div class="pwrap" id="pwrap"></div></div>
+</div>
+
+<!-- yardım -->
+<dialog id="dlgHelp" aria-labelledby="dlgHelpT">
+  <div class="dlg-h"><h3 id="dlgHelpT">Nasıl çalışır?</h3><button class="btn ic ghost" data-close aria-label="Kapat"><i data-ic="x"></i></button></div>
+  <div class="dlg-b" id="helpBody"></div>
+</dialog>
+
+<!-- hoca notları -->
+<dialog id="dlgHoca" aria-labelledby="dlgHocaT">
+  <div class="dlg-h"><h3 id="dlgHocaT">★ Hoca notları</h3><button class="btn ic ghost" data-close aria-label="Kapat"><i data-ic="x"></i></button></div>
+  <div class="dlg-b" id="hocaBody"></div>
+</dialog>
+
+<!-- kayıt -->
+<dialog id="dlgRec" aria-labelledby="dlgRecT">
+  <div class="dlg-h"><h3 id="dlgRecT">Kaydım</h3><button class="btn ic ghost" data-close aria-label="Kapat"><i data-ic="x"></i></button></div>
+  <div class="dlg-b" id="recBody"></div>
+</dialog>
+
+<script>
+/*{{BANK}}*/
+</script>
+<script>
+/*{{ENGINE}}*/
+</script>
+<script>
+/*{{APP}}*/
+</script>
+</body>
+</html>
