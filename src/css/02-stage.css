@@ -3,10 +3,10 @@
    Katmanlar yalnızca  .stage[data-on~="katman"]  ile açılır; geçişler dalga gecikmesi (--d) taşır.
    ========================================================================== */
 .studio {
-  max-width: 1560px; margin: 0 auto; padding: 14px clamp(10px, 2vw, 28px) 140px;
-  display: grid; grid-template-columns: 248px minmax(0, 1fr) 392px; gap: clamp(12px, 1.6vw, 26px); align-items: start;
+  max-width: 97.5rem; margin: 0 auto; padding: 14px clamp(10px, 2vw, 28px) calc(140px + env(safe-area-inset-bottom, 0px));
+  display: grid; grid-template-columns: 15.5rem minmax(0, 1fr) 24.5rem; gap: clamp(12px, 1.6vw, 26px); align-items: start;
 }
-.studio.nside { grid-template-columns: 248px minmax(0, 1fr); }
+.studio.nside { grid-template-columns: 15.5rem minmax(0, 1fr); }
 .textbar {
   grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 18px;
   background: var(--bg1); border: 1px solid var(--line); border-radius: 999px; min-height: 52px;

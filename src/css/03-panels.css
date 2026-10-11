@@ -1,7 +1,7 @@
 /* ==========================================================================
    Paneller: katman rayı, yan panel (kelime / cümle), alt şerit, rapor, alıştırma, pencereler
    ========================================================================== */
-.rail, .side { position: sticky; top: 76px; max-height: calc(100vh - 92px); overflow: auto; scrollbar-width: thin; scrollbar-color: var(--line2) transparent; align-self: start; }
+.rail, .side { position: sticky; top: 4.75rem; max-height: calc(100vh - 92px); overflow: auto; scrollbar-width: thin; scrollbar-color: var(--line2) transparent; align-self: start; }
 .rail { display: flex; flex-direction: column; gap: 12px; padding-bottom: 8px; }
 .rcard { background: var(--bg1); border: 1px solid var(--line); border-radius: var(--r2); padding: 14px 12px 12px; }
 .rcard h3 { font-size: .8rem; font-weight: 700; color: var(--ink3); letter-spacing: .01em; margin: 0 4px 10px; display: flex; align-items: center; gap: 8px; }
@@ -199,7 +199,7 @@
 .recbox .cmp span { font-size: .7rem; color: var(--ink3); }
 
 /* —— rapor —— */
-.page { max-width: 1180px; margin: 0 auto; padding: clamp(18px, 4vh, 44px) clamp(14px, 3vw, 36px) 90px; }
+.page { max-width: 73.75rem; margin: 0 auto; padding: clamp(18px, 4vh, 44px) clamp(14px, 3vw, 36px) 90px; }
 .page h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800; letter-spacing: -.03em; font-variation-settings: 'wdth' 84; margin-bottom: .2em; }
 .page .sub { color: var(--ink2); max-width: 46em; margin-bottom: 24px; }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
@@ -236,7 +236,7 @@
 .tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
 
 /* —— alıştırma —— */
-.pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(310px, 100%), 1fr)); gap: 14px; margin-bottom: 14px; }
 .pcard { background: var(--bg1); border: 1px solid var(--line); border-radius: var(--r3); padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: border-color .25s, transform .4s var(--spring); }
 .pcard:hover { border-color: var(--line2); }
 .pcard h3 { font-size: 1.18rem; font-weight: 750; letter-spacing: -.015em; }

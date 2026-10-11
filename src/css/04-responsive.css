@@ -1,0 +1,84 @@
+/* ===== 04 — duyarlı düzen: dar telefon, yatay telefon, geniş ekran, dokunmatik, güvenli alan ===== */
+
+/* ---- üst çubuk: hiçbir genişlikte taşmaz ---- */
+.tabs { min-width: 0; flex: 0 1 auto; }
+.tabs button { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top { padding-left: max(clamp(12px, 2.4vw, 28px), env(safe-area-inset-left, 0px)); padding-right: max(clamp(12px, 2.4vw, 28px), env(safe-area-inset-right, 0px)); }
+@media (max-width: 480px) {
+  .top { gap: 6px; padding-top: 8px; padding-bottom: 8px; padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px)); }
+  .logo .mk { width: 28px; height: 28px; }
+  .tabs { padding: 3px; gap: 1px; margin-left: 0; }
+  .tabs button { padding: .52em .62em; font-size: clamp(.74rem, 3.6vw, .84rem); }
+  .tabs .pill { top: 3px; bottom: 3px; }
+  .top .acts { gap: 4px; }
+  .top .acts .btn.ic { width: 40px; height: 40px; padding: 0; aspect-ratio: auto; }
+}
+@media (max-width: 345px) { .logo { display: none; } }
+
+/* ---- sayfa kenar boşlukları (çentikli telefonlar) ---- */
+.studio { padding-left: max(clamp(10px, 2vw, 28px), env(safe-area-inset-left, 0px)); padding-right: max(clamp(10px, 2vw, 28px), env(safe-area-inset-right, 0px)); }
+.page { padding-left: max(clamp(14px, 3vw, 36px), env(safe-area-inset-left, 0px)); padding-right: max(clamp(14px, 3vw, 36px), env(safe-area-inset-right, 0px)); }
+
+/* ---- alttaki oynatma çubuğu, panel ve bildirim: ana ekran çizgisinin üstünde ---- */
+.dock { bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+.toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+.dock.playing .pbtn .i-pause { display: grid; }
+@media (max-width: 1180px) {
+  .dock { bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  .side { bottom: calc(8px + env(safe-area-inset-bottom, 0px)); max-height: min(66dvh, 620px); }
+}
+
+/* ---- masaüstü: kayan çubuk yan panellerin üstüne binmesin ---- */
+@media (min-width: 1181px) {
+  body:has(#dock.on) .rail, body:has(#dock.on) .side { max-height: max(18rem, calc(100dvh - 10.5rem - 6.75rem)); }
+}
+
+/* ---- yatay telefon / kısa pencere ---- */
+@media (max-height: 520px) and (orientation: landscape) and (max-width: 1180px) {
+  .top { position: relative; padding-top: 5px; padding-bottom: 5px; }
+  .studio { padding-top: 8px; padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+  .side { left: auto; top: 8px; right: max(8px, env(safe-area-inset-right, 0px)); bottom: max(8px, env(safe-area-inset-bottom, 0px)); width: min(48vw, 460px); max-height: none; transform: translateX(115%); border-radius: 20px; }
+  .side.open { transform: none; }
+  body.sideopen .studio { padding-right: calc(min(48vw, 460px) + 20px); }
+  .dock { flex-wrap: nowrap; gap: 6px; padding: 5px 8px 5px 5px; width: calc(100% - 16px); max-width: 860px; }
+  .dock .prog { order: 0; flex: 1 1 110px; min-width: 90px; }
+  .pbtn { width: 40px; height: 40px; }
+  .breath { display: none; }
+  .hero { padding-top: 16px; }
+}
+
+/* ---- geniş ekranlar: her şey orantılı büyür ---- */
+@media (min-width: 1900px) { html { font-size: 112.5%; } :root { --rs: 29px; } }
+@media (min-width: 2400px) { html { font-size: 128%; } :root { --rs: 33px; } }
+
+/* ---- dokunmatik: parmakla basılabilir boyutlar ---- */
+@media (pointer: coarse) {
+  .btn { min-height: 40px; }
+  .btn.sm { min-height: 38px; }
+  .seg button { min-height: 34px; padding-top: .5em; padding-bottom: .5em; }
+  .stabs button { min-height: 42px; }
+  .kinds button { min-height: 38px; }
+  .rail .ly { min-height: 42px; }
+  .chip { min-height: 40px; }
+  #btnPrev, #btnNext { min-width: 40px; min-height: 40px; }
+}
+
+/* ---- dar telefon: oynatma çubuğu iki satıra sığar (ilerleme çubuğu üst satırda) ---- */
+@media (max-width: 480px) {
+  .dock { gap: 6px; padding: 6px 8px 6px 6px; border-radius: 24px; }
+  .dock .prog { order: 0; flex: 1 1 80px; min-width: 80px; }
+  .dock .seg button { font-size: .72rem; padding: .45em .55em; }
+  .dock .btn.ic { width: 38px; height: 38px; min-width: 38px; min-height: 38px; padding: 0; aspect-ratio: auto; }
+  .dock .pbtn { width: 44px; height: 44px; }
+  .studio { padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ---- dar ekranda katman şeridi: kart çerçevesi yerine kaydırılan düğme sırası ---- */
+@media (max-width: 1180px) {
+  .rail { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 26px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 26px), transparent); }
+  .rail .rcard.lcard { background: transparent; border-color: transparent; box-shadow: none; padding: 2px 0; }
+}
+
+/* ---- dokunmatik ekranda üzerinde kalan ipucu balonu gizli (dokununca ayrıntı paneli zaten açılır) ---- */
+@media (hover: none) { #tip { display: none !important; } }
+@media (hover: none) { .btn .kbd { display: none; } }

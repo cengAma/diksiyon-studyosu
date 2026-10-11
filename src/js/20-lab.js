@@ -48,8 +48,10 @@ function scrollWithin(el) {
   const box = $('#side'); if (!box || !el) return;
   const b = box.getBoundingClientRect(), r = el.getBoundingClientRect();
   const head = 52; // yapışkan sekme çubuğu
-  if (r.top < b.top + head) box.scrollBy({ top: r.top - b.top - head - 8, behavior: REDUCED ? 'auto' : 'smooth' });
-  else if (r.bottom > b.bottom - 6) box.scrollBy({ top: r.bottom - b.bottom + 14, behavior: REDUCED ? 'auto' : 'smooth' });
+  // kart yeterince görünüyorsa kaydırma: sözcük başlığı kırpılmasın
+  const visible = Math.min(r.bottom, b.bottom - 6) - Math.max(r.top, b.top + head);
+  if (visible >= Math.min(r.height, 90)) return;
+  box.scrollBy({ top: r.top - b.top - head - 12, behavior: REDUCED ? 'auto' : 'smooth' });
 }
 function glowMark(id) {
   $$('#labBody .l[data-m~="' + id + '"], #stage .w.sel .l[data-m~="' + id + '"]').forEach((x) => x.classList.add('on'));
